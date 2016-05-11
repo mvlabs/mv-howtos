@@ -1,0 +1,48 @@
+<?php
+$flash = $this->flashMessenger();
+
+// personalizzazione aspetto Flash Message per Bootstrap
+$flash->setMessageOpenFormat('<div%s>
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    &times;
+    </button>
+    <ul><li>')
+    ->setMessageSeparatorString('</li><li>')
+    ->setMessageCloseString('</li></ul></div>');
+?>
+<div class="jumbotron">
+    <h1>PHP how to</h1>
+</div>
+
+<div style="margin-bottom: 30px">
+    <a href="<?=$this->url('istruzioni/aggiungi')?>" class="btn btn-primary">Aggiungi nuova istruzione</a>
+</div>
+
+<?= $flash->render('success', array('alert', 'alert-dismissible', 'alert-success')); ?>
+
+<?php if (count($this->lista) > 0) { ?>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+    <?php for($i = 1; $i <= count($this->lista); $i++) {
+        $istruzione = $this->lista[$i - 1];
+        ?>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading<?=$i?>">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$i?>" aria-expanded="false" aria-controls="collapse<?=$i?>">
+                <?=$istruzione->getTitolo() ?>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse<?=$i?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?=$i?>">
+            <div class="panel-body">
+                <?=$istruzione->getIstruzioni() ?>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+
+</div>
+<?php } else { ?>
+<div class="well">Nessuna istruzione presente</div>
+<?php } ?>
