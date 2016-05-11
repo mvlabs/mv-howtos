@@ -1,4 +1,8 @@
 <?php
+
+// aggiunta file JS
+$this->inlineScript()->appendFile($this->basePath('js/voti.js'));
+
 $flash = $this->flashMessenger();
 
 // personalizzazione aspetto Flash Message per Bootstrap
@@ -30,8 +34,11 @@ $flash->setMessageOpenFormat('<div%s>
         <div class="panel-heading" role="tab" id="heading<?=$i?>">
             <h4 class="panel-title">
                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$i?>" aria-expanded="false" aria-controls="collapse<?=$i?>">
-                <?=$istruzione->getTitolo() ?>
+                <strong><?=$istruzione->getTitolo() ?></strong>
                 </a>
+                <button type="button" data-voto="positivo" class="btn btn-default js-vota"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>
+                <button type="button" data-voto="negativo" class="btn btn-default js-vota"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
+                <span class="js-voto" data-istruzione="<?=$istruzione->getId() ?>"><?=$istruzione->getVotiPositivi() ?> voti positivi / <?=$istruzione->getVotiNegativi() ?> voti negativi<span>
             </h4>
         </div>
         <div id="collapse<?=$i?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?=$i?>">

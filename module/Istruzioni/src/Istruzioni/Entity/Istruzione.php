@@ -43,6 +43,20 @@ class Istruzione
      */
     private $istruzioni;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="voti_positivi", type="integer", nullable=true)
+     */
+    private $votiPositivi = 0;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="voti_negativi", type="integer", nullable=true)
+     */
+    private $votiNegativi = 0;
+
     public function __construct($titolo, $autore, $istruzioni) {
         $this->titolo = $titolo;
         $this->autore = $autore;
@@ -130,5 +144,63 @@ class Istruzione
     public function getIstruzioni()
     {
         return $this->istruzioni;
+    }
+
+    /**
+     * Set votiPositivi
+     *
+     * @param int $votiPositivi
+     *
+     * @return Istruzione
+     */
+    public function setVotiPositivi($votiPositivi)
+    {
+        $this->votiPositivi = $votiPositivi;
+
+        return $this;
+    }
+
+    /**
+     * Get votiPositivi
+     *
+     * @return \int
+     */
+    public function getVotiPositivi()
+    {
+        return $this->votiPositivi;
+    }
+
+    /**
+     * Set votiNegativi
+     *
+     * @param int $votiNegativi
+     *
+     * @return Istruzione
+     */
+    public function setVotiNegativi($votiNegativi)
+    {
+        $this->votiNegativi = $votiNegativi;
+
+        return $this;
+    }
+
+    /**
+     * Get votiNegativi
+     *
+     * @return \int
+     */
+    public function getVotiNegativi()
+    {
+        return $this->votiNegativi;
+    }
+
+    public function toArray() {
+        return [
+            'titolo' => $this->titolo,
+            'autore' => $this->autore,
+            'istruzioni' => $this->istruzioni,
+            'voti_positivi' => $this->votiPositivi,
+            'voti_negativi' => $this->votiNegativi,
+        ];
     }
 }

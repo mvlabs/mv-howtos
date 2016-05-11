@@ -4,6 +4,7 @@ namespace Istruzioni\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 use Istruzioni\Service\IstruzioniService;
 use Istruzioni\Form\IstruzioneForm;
 
@@ -47,4 +48,17 @@ class IndexController extends AbstractActionController
             'form' => $this->form
         ]);
     }
+
+    public function votoAction() {
+        $idIstruzione = $this->params()->fromPost('istruzione');
+        $voto = $this->params()->fromPost('voto');
+
+        $istruzioneAggiornata = $this->istruzioniService->vota($idIstruzione, $voto);
+
+        return new JsonModel([
+            'istruzione' => $istruzioneAggiornata->toArray()
+        ]);
+
+    }
+
 }
